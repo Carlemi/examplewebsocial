@@ -29,7 +29,7 @@ ALLOWED_HOSTS = ['*']
 
 CSRF_TRUSTED_ORIGINS = [
     'http://127.0.0.1:8000', #local
-    'https://1b9e-2806-2f0-1000-aa76-41fa-ec2a-31dd-9eb.ngrok-free.app' #ngrok tunel
+    'https://3dd8-189-203-34-92.ngrok-free.app' #ngrok tunel
 ]
 
 
@@ -136,7 +136,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = 'dashboard'
 LOGIN_URL = 'login'
-LOGOUT_URL = 'logout'
+LOGOUT_URL = 'login'
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
@@ -147,43 +147,21 @@ AUTHENTICATION_BACKENDS = [
     'social_core.backends.google.GoogleOAuth2',
 ]
 
-""" SOCIAL_AUTH_FACEBOOK_KEY = '1384490455523085'
-SOCIAL_AUTH_FACEBOOK_SECRET = '1ad73a7d1b2a7bd5aebe46ab002663ea' """
+SOCIAL_AUTH_FACEBOOK_KEY = '1384490455523085'
+SOCIAL_AUTH_FACEBOOK_SECRET = '1ad73a7d1b2a7bd5aebe46ab002663ea' 
 
-""" SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '39869306573-knk0r7akbad84cfser1kn24e8jjihvh5.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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' """
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '39869306573-knk0r7akbad84cfser1kn24e8jjihvh5.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
 
-SOCIALACCOUNT_PROVIDERS = {
-    'google': {
-        'APP': [{
-            'client_id': '39869306573-knk0r7akbad84cfser1kn24e8jjihvh5.apps.googleusercontent.com',
-            'secret': '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',
-            'key': ''
-        }],
-        'SCOPE': [
-            'profile',
-            'email',
-        ],
-        'AUTH_PARAMS':{
-            'access_type': 'online',
-        },
-    }
-}
-
-SOCIALACCOUNT_PROVIDERS = {
-    'facebook': {
-        'METHOD': 'oauth2',
-        'SCOPE': ['email', 'public_profile'],
-        'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
-        'INIT_PARAMS': {'cookie': True},
-        'FIELDS': ['id', 'email', 'name', 'first_name', 'last_name', 'verified', 'locale', 'timezone', 'link', 'gender', 'updated_time'],
-        'VERIFIED_EMAIL': False,
-        'VERSION': 'v18.0',
-        'KEY': '',
-        'APP': {
-            'client_id': '1384490455523085',
-            'secret': '1ad73a7d1b2a7bd5aebe46ab002663ea',
-            'key': ''
-        }
-    }
-}
+SOCIAL_AUTH_PIPELINE = [
+'social_core.pipeline.social_auth.social_details',
+'social_core.pipeline.social_auth.social_uid',
+'social_core.pipeline.social_auth.auth_allowed',
+'social_core.pipeline.social_auth.social_user',
+'social_core.pipeline.user.get_username',
+'social_core.pipeline.user.create_user',
+'account.authentication.create_profile',
+'social_core.pipeline.social_auth.associate_user',
+'social_core.pipeline.social_auth.load_extra_data',
+'social_core.pipeline.user.user_details',
+]
